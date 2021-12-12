@@ -5,15 +5,17 @@ import { useState } from 'react';
 
 import styles from './AddContact.module.scss';
 
-function AddContact() {
+function AddContact({ onSubmit }) {
   const [namePeople, setNamePeople] = useState('');
   const [number, setNumber] = useState('');
 
   const handleChange = ({ target }) => {
     const { name, value } = target;
-    this.setState({
-      [name]: value,
-    });
+    if (name === 'number') {
+      setNumber(value);
+    } else {
+      setNamePeople(value);
+    }
   };
 
   function reset() {
@@ -25,7 +27,7 @@ function AddContact() {
     event.preventDefault();
 
     const id = nanoid();
-    this.props.onSubmit({ namePeople, number, id });
+    onSubmit({ namePeople, number, id });
     reset();
   };
 
@@ -66,5 +68,9 @@ function AddContact() {
     </form>
   );
 }
+
+AddContact.propTypes = {
+  onSubmit: PropTypes.func,
+};
 
 export default AddContact;
