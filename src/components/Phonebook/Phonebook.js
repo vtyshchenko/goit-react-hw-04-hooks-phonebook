@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
 
 import styles from './Phonebook.module.scss';
 import Contacts from './Contacts';
@@ -14,7 +13,7 @@ function Phonebook() {
     let contactsLoad = localStorage.getItem('contacts');
     if (contactsLoad) {
       contactsLoad = JSON.parse(contactsLoad);
-      setContacts([...contactsLoad]);
+      contactsLoad && setContacts([...contactsLoad]);
     }
   }, []);
 
@@ -35,20 +34,13 @@ function Phonebook() {
   };
 
   const handleDeleteContact = id => {
-    this.setState(previousState => ({
-      contacts: previousState.contacts.filter(contactItem => contactItem.id !== id),
-    }));
-    console.log(this.state.contacts);
-    localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
+    setContacts(state => state.filter(contactItem => contactItem.id !== id));
+    localStorage.setItem('contacts', JSON.stringify(contacts));
   };
-
-  function getFilteredContacts(filterLC) {
-    return contacts.filter(contactItem => contactItem.name.toLowerCase().includes(filterLC));
-  }
 
   function getContacts() {
     const filterLC = filter.toLowerCase();
-    return getFilteredContacts(filterLC);
+    return contacts.filter(contactItem => contactItem.name.toLowerCase().includes(filterLC));
   }
 
   const contactsFiltered = getContacts();
