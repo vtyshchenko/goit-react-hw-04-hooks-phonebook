@@ -52,7 +52,7 @@ function Phonebook() {
       <AddContact onSubmit={handleAddContact} />
       <h2 className={styles.title}>Contacts</h2>
       {isShowFilter && <Filter filter={filter} onChange={handleOnFiler} />}
-      <Contacts contctsList={contactsFiltered} onDelete={handleDeleteContact} />
+      <Contacts contactsList={contactsFiltered} onDelete={handleDeleteContact} />
     </div>
   );
 }
